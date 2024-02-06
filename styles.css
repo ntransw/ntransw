@@ -3,7 +3,7 @@
 /* Reset default browser styles */
 
 * {
-    margin-left: 150px;
+    text-align: center;
 }
 
 h1 {
@@ -29,6 +29,7 @@ h4 {
 
 body {
     font-family: 'Alegreya';
+    text-align: center;
     font-size: 16px;
     line-height: 1.5;
     color: #272727;
@@ -38,17 +39,18 @@ body {
 .desc {
     max-width: 800px;
     color: #7f7f7f;
-    margin-left: 0px;
+    justify-content: center;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .name {
     font-size: 55px;
 }
 
-.bullet-points {
-    margin-left: 150px;
-    margin-top: 30px;
-    margin-bottom: 60px;
-}
 
 /* H
