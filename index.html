@@ -13,9 +13,11 @@
         <div class="desc">
             <p>
                 I am a Software Engineer with 1.5 years of experience, primarily in automated testing for medical devices.
-                My passion for technology has also driven me to work on a diverse range of projects, including DevOps pipelines, embedded GUIs, and Android applications.
+                My passion for technology has also driven me to work on a diverse range of projects, including
+                DevOps pipelines, cloud infrastructure, embedded GUIs, and Android applications.
+                <br>
+                <br>
                 I am currently open to Software Engineer, DevOps Engineer, and QA Automation Engineer roles.
-
             </p>
         </div>
 
@@ -26,18 +28,19 @@
                 const parsedData = parseInt(data);
                 const visitorElement = document.getElementById('visitor-data');
                 visitorElement.textContent = `Total Website Visits: ${parsedData}`;
-                // visitorElement.style.display = 'block';
               })
               .catch(error => {
                 console.error('Visitor counter failed:', error);
               });
         </script>
         <div id="visitor-data">&nbsp;</div>
+        <!-- The above whitespace is a quick hack to load the element ASAP without waiting for the data fetch.
+             This way, the remainder of the webpage doesn't get visually shifted from a later load. There is probably a better way of doing this.-->
 
         <br>
-        <a href="https://www.linkedin.com/in/nathan-h-tran/"><img src="assets/linkedin.png" width="70" height="70"></a>
-        <a href="https://github.com/ntransw"><img src="assets/github.png" width="70" height="70"></a>
-        <a href="assets/Nathan_Tran_Resume.pdf" download><img src="assets/resume.jpg" width="70" height="70"></a>
+        <a href="https://www.linkedin.com/in/nathan-h-tran/" title="LinkedIn"><img src="assets/linkedin.png" width="70" height="70"></a>
+        <a href="https://github.com/ntransw" title="GitHub"><img src="assets/github.png" width="70" height="70"></a>
+        <a href="assets/Nathan_Tran_Resume.pdf" title="Download CV" download><img src="assets/resume.jpg" width="70" height="70"></a>
 
         <h3>Education</h3>
         <h4>Bachelor of Science in Computer Science
