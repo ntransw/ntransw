@@ -15,9 +15,26 @@
                 I am a Software Engineer with 1.5 years of experience, primarily in automated testing for medical devices.
                 My passion for technology has also driven me to work on a diverse range of projects, including DevOps pipelines, embedded GUIs, and Android applications.
                 I am currently open to Software Engineer, DevOps Engineer, and QA Automation Engineer roles.
+
             </p>
         </div>
 
+        <script>
+            fetch('https://a8la486rac.execute-api.us-east-1.amazonaws.com/default/increment_viewcount')
+              .then(response => response.json())
+              .then(data => {
+                const parsedData = parseInt(data);
+                const visitorElement = document.getElementById('visitor-data');
+                visitorElement.textContent = `Total Website Visits: ${parsedData}`;
+                // visitorElement.style.display = 'block';
+              })
+              .catch(error => {
+                console.error('Visitor counter failed:', error);
+              });
+        </script>
+        <div id="visitor-data">&nbsp;</div>
+
+        <br>
         <a href="https://www.linkedin.com/in/nathan-h-tran/"><img src="assets/linkedin.png" width="70" height="70"></a>
         <a href="https://github.com/ntransw"><img src="assets/github.png" width="70" height="70"></a>
         <a href="assets/Nathan_Tran_Resume.pdf" download><img src="assets/resume.jpg" width="70" height="70"></a>
@@ -52,6 +69,18 @@
         </div>
 
         <h3>Projects</h3>
+        <h4>Cloud CI/CD Portfolio Website</h4>
+        <div class="desc">
+            <ul>
+                <li>The website you are currently looking at!</li>
+                <li>Utilized technologies: AWS S3, CloudFront, Route 53, DynamoDB, Lambda, API Gateway, Python, JavaScript, HTML, CSS, Git</li>
+                <li>Deployed serverless website hosted in AWS S3 Bucket</li>
+                <li>Integrated CloudFront CDN for HTTPS encryption and greater worldwide performance through edge caching</li>
+                <li>Automated website updates to trigger on new main branch commits with CI/CD pipeline using GitHub Actions</li>
+                <li>Implemented website visit counter using DynamoDB, Lambda with Boto3, and API Gateway</li>
+                <li>Working on infrastructure as code (IaC) with Terraform</li>
+            </ul>
+        </div>
         <h4>Shamir's Secret Sharing File Server</h4>
         <div class="desc">
             <ul>
@@ -61,18 +90,6 @@
                 <li>Developed feature that allows user to transmit different file fragments across multiple separate channels, exponentially reducing odds of attacker interception</li>
             </ul>
         </div>
-        <h4>Personal Portfolio Website (Work-in-progress) </h4>
-        <div class="desc">
-            <ul>
-                <li>The website you are currently looking at!</li>
-                <li>Utilized technologies: AWS S3, CloudFront, Route 53, Certificates Manager, HTML, CSS, Git</li>
-                <li>Deployed serverless website hosted in S3</li>
-                <li>Integrated CloudFront CDN for greater worldwide performance and HTTPS encryption</li>
-                <li>Automated website updates on code changes with CI/CD pipeline using GitHub Actions</li>
-                <li>Working on infrastructure as code (IaC) with Terraform</li>
-            </ul>
-        </div>
-
 
     </main>
 
