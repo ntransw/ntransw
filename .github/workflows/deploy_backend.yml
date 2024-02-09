@@ -11,9 +11,19 @@ jobs:
   terraform_apply:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: true
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          dynamodb-access-key-id: ${{ secrets.DYNAMODB_ACCESS_KEY_ID }}
+          dynamodb-secret-access-key: ${{ secrets.DYNAMODB_SECRET_ACCESS_KEY }}
+          dynamodb-region: us-east-1
 
       - name: Test lambda function
         id: test_lambda
