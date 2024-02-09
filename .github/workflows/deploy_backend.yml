@@ -17,7 +17,7 @@ jobs:
 
       - name: Test lambda function
         id: test_lambda
-        run: python3 backend/test_lambda.py
+        run: pip install -r backend/requirements.txt && python3 backend/test_lambda.py
 
       - name: Setup Terraform
         if: ${{ steps.test_lambda.outcome == 'success' }}
