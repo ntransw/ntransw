@@ -100,9 +100,29 @@ resource "aws_dynamodb_table" "my_table" {
   }
 }
 
+# Attempted to automatically create zip every time the SHA for the Python back-end changes,
+# but it's not really working right now, so I'll leave it out. As a result, the zip must
+# always be in infra/
+#
+# resource "null_resource" "create_zip" {
+#     triggers = {
+#         files = filesha256("../backend/lambda_function.py")
+#     }
+
+#     provisioner "local-exec" {
+#         command = "zip increment_viewcount.zip ../backend/lambda_function.py"
+#     }
+# }
+
+data "archive_file" "lambda_zip" {
+    type        = "zip"
+    source_dir  = "../backend"
+    output_path = "./increment_viewcount.zip"
+}
+
 resource "aws_lambda_function" "my_function" {
   role                           = "arn:aws:iam::730335278778:role/service-role/DBAccess"
-  filename                       = "./increment_viewcount.zip"
+  filename                       = data.archive_file.lambda_zip.output_path
   function_name                  = "arn:aws:lambda:us-east-1:730335278778:function:increment_viewcount"
   handler                        = "lambda_function.lambda_handler"
   runtime                        = "python3.12"
@@ -114,9 +134,10 @@ resource "aws_lambda_function" "my_function" {
   publish                        = false
   reserved_concurrent_executions = -1
   skip_destroy                   = false
+  timeout                        = 3
   tags                           = {}
   tags_all                       = {}
-  timeout                        = 3
+
 
   ephemeral_storage {
     size = 512
