@@ -21,31 +21,29 @@ jobs:
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          dynamodb-access-key-id: ${{ secrets.DYNAMODB_ACCESS_KEY_ID }}
-          dynamodb-secret-access-key: ${{ secrets.DYNAMODB_SECRET_ACCESS_KEY }}
-          dynamodb-region: us-east-1
+          aws-access-key-id: ${{ secrets.DYNAMODB_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DYNAMODB_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       - name: Test lambda function
         id: test_lambda
         run: pip install -r backend/requirements.txt && python3 backend/test_lambda.py
 
       - name: Setup Terraform
-        if: ${{ steps.test_lambda.outcome == 'success' }}
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.7.2
 
       - name: Terraform Init
+        working-directory: infra/
         run: terraform init
 
       - name: Terraform Validate
+        working-directory: infra/
         run: terraform validate
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -out=tfplan -input=false
-
       - name: Terraform Apply
-        run: terraform apply -input=false tfplan
+        working-directory: infra/
+        run: terraform apply -input=false
         env:
           TF_CLI_ARGS: "-auto-approve"

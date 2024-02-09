@@ -1,7 +1,7 @@
 from json import dumps
 from boto3 import client
 
-client = client('dynamodb', region_name='us-east-1')
+dynamodb_client = client('dynamodb', region_name='us-east-1')
 
 HTTP_OK = 200
 HTTP_NOT_FOUND = 404
@@ -9,7 +9,7 @@ HTTP_INTERNAL_SERVER_ERROR = 500
 TABLE_NAME = 'cloudresumedb'
 
 def increment_count():
-    _ = client.update_item(
+    _ = dynamodb_client.update_item(
         TableName=TABLE_NAME,
         Key={'webdata': {'S': 'viewcount'}},
         UpdateExpression='SET #counter = #counter + :incr',
@@ -20,7 +20,7 @@ def increment_count():
 
 def retrieve_data():
     try:
-        response = client.get_item(
+        response = dynamodb_client.get_item(
             TableName=TABLE_NAME,
             Key={'webdata': {'S': 'viewcount'}}
         )
