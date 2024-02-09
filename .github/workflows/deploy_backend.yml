@@ -1,0 +1,41 @@
+name: Test and Deploy back-end changes to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  terraform_apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Test lambda function
+        id: test_lambda
+        run: python3 backend/test_lambda.py
+
+      - name: Setup Terraform
+        if: ${{ steps.test_lambda.outcome == 'success' }}
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.7.2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=tfplan -input=false
+
+      - name: Terraform Apply
+        run: terraform apply -input=false tfplan
+        env:
+          TF_CLI_ARGS: "-auto-approve"
