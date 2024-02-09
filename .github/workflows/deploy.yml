@@ -1,7 +1,11 @@
-name: Deploy to S3 and Invalidate CloudFront Cache
+name: Deploy front-end to S3 and Invalidate CloudFront Cache
 
 on:
   push:
+    paths:
+      - 'assets/**'
+      - 'index.html'
+      - 'styles.css'
     branches:
       - main
 jobs:
@@ -22,5 +26,4 @@ jobs:
         run: aws s3 sync ./ s3://ntrancrc --acl public-read --exclude ".git/*" --exclude ".github/*"
 
       - name: Invalidate CloudFront Cache
-        run: |
-          aws cloudfront create-invalidation --distribution-id EUZRL7UOD9E66 --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id EUZRL7UOD9E66 --paths "/*"
