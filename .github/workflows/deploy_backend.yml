@@ -38,12 +38,16 @@ jobs:
         working-directory: infra/
         run: terraform init
 
+      - name: Terraform Import
+        working-directory: infra/
+        run: terraform import aws_lambda_function.my_function arn:aws:lambda:us-east-1:730335278778:function:increment_viewcount
+
       - name: Terraform Validate
         working-directory: infra/
         run: terraform validate
 
       - name: Terraform Apply
         working-directory: infra/
-        run: terraform apply -input=false
+        run: terraform apply -target=aws_lambda_function.my_function -input=false
         env:
           TF_CLI_ARGS: "-auto-approve"
